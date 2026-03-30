@@ -31,4 +31,13 @@ const addToCart = async (req, res) => {
   }
 };
 
-module.exports = { addToCart };
+const getCartItems = async (req, res) => {
+  try {
+    const cartItems = await CartItem.find();
+    res.status(200).json(cartItems);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { addToCart, getCartItems };
