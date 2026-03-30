@@ -64,4 +64,27 @@ const updateCartItem = async (req, res) => {
   }
 };
 
-module.exports = { addToCart, getCartItems, updateCartItem };
+const deleteCartItem = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const cartItem = await CartItem.findById(id);
+
+    if (!cartItem) {
+      return res.status(404).json({ message: "Cart item not found" });
+    }
+
+    await cartItem.deleteOne();
+
+    res.status(200).json({ message: "Cart item deleted successfully" });
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = {
+  addToCart,
+  getCartItems,
+  updateCartItem,
+  deleteCartItem,
+};
