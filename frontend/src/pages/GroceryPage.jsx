@@ -6,9 +6,10 @@ function GroceryPage() {
 
   const handleAdd = (item) => {
     const cartItem = {
-      productId: item.id,
       name: item.name,
+      category: item.category,
       price: item.price,
+      image: item.image,
       quantity: 1,
     };
 
@@ -16,14 +17,35 @@ function GroceryPage() {
   };
 
   const items = [
-    { id: 1, name: "Grain Waves - Sweet Chilli", price: 3.33 },
-    { id: 2, name: "Chicken Schnitzel", price: 6.54 },
-    { id: 3, name: "Quest Protein Cookie", price: 2.22 },
+    {
+      id: 1,
+      name: "Grain Waves - Sweet Chilli",
+      category: "Snacks",
+      price: 3.33,
+      image:
+        "https://cdn.productimages.coles.com.au/productimages/3/3926679.jpg",
+    },
+    {
+      id: 2,
+      name: "Chicken Schnitzel",
+      category: "Meat",
+      price: 6.54,
+      image:
+        "https://cdn0.woolworths.media/content/wowproductimages/large/134041.jpg",
+    },
+    {
+      id: 3,
+      name: "Quest Protein Cookie",
+      category: "Protein Snacks",
+      price: 2.22,
+      image:
+        "https://cdn.productimages.coles.com.au/productimages/3/3926679.jpg",
+    },
   ];
 
   return (
     <div>
-      <h1>Grocery Store</h1>
+      <h1>Groceries"R"Us</h1>
 
       {items.map((item) => (
         <div key={item.id}>
