@@ -40,4 +40,28 @@ const getCartItems = async (req, res) => {
   }
 };
 
-module.exports = { addToCart, getCartItems };
+const updateCartItem = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { quantity } = req.body;
+
+    if (quantity === undefined || quantity < 1) {
+      return res.status(400).json({ message: "Quantity must be at least 1" });
+    }
+
+    const cartItem = await CartItem.findById(id);
+
+    if (!cartItem) {
+      return res.status(404).json({ message: "Cart item not found" });
+    }
+
+    cartItem.quantity = quantity;
+
+    const updatedItem = await cartItem.save();
+    res.status(200).json(updatedItem);
+  } catch (error) {
+    res.status(500).json({ message: "Server error", error: error.message });
+  }
+};
+
+module.exports = { addToCart, getCartItems, updateCartItem };
