@@ -1,4 +1,4 @@
-const express = require("express");
+const express = require("express"); //Import express framework
 const router = express.Router();
 
 const {
@@ -6,11 +6,11 @@ const {
   getCartItems,
   updateCartItem,
   deleteCartItem,
-} = require("../controllers/cartController");
+} = require("../controllers/cartController"); //Import controller functions
 
-router.post("/", addToCart);
-router.get("/", getCartItems);
-router.put("/:id", updateCartItem);
-router.delete("/:id", deleteCartItem);
+router.post("/", addToCart); //CREATE
+router.get("/", getCartItems); //READ
+router.put("/:id", updateCartItem); //UPDATE
+router.delete("/:id", deleteCartItem); //DELETE
 
-module.exports = router;
+module.exports = router; //Makes avalible to server
