@@ -1,10 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext } from "react"; //Import react
 import { CartContext } from "../context/CartContext";
 
 function GroceryPage() {
   const { cart, addToCart } = useContext(CartContext);
 
   const handleAdd = (item) => {
+    //Handle items added
     const cartItem = {
       name: item.name,
       category: item.category,
@@ -16,6 +17,7 @@ function GroceryPage() {
     addToCart(cartItem);
   };
 
+  //Items
   const items = [
     {
       id: 1,
