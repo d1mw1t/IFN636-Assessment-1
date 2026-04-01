@@ -1,13 +1,15 @@
-import React, { useContext } from "react"; //Import react
+import React, { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { CartContext } from "../context/CartContext";
+import { useAuth } from "../context/AuthContext";
 
 function GroceryPage() {
-  //Gets cart data and cart functions from the global cart context
   const { cart, addToCart, updateCartItem, deleteCartItem } =
     useContext(CartContext);
+  const { user } = useAuth();
+  const navigate = useNavigate();
 
   const handleAdd = (item) => {
-    //Handle items added
     const cartItem = {
       name: item.name,
       category: item.category,
@@ -19,24 +21,25 @@ function GroceryPage() {
     addToCart(cartItem);
   };
 
-  //Increases the selected cart item's quantity by 1
+  //Sends logged out users to login before they can add items
+  const handleLoginPrompt = () => {
+    navigate("/login");
+  };
+
   const handleIncrease = (item) => {
     updateCartItem(item._id, item.quantity + 1);
   };
 
-  //Decreases the selected cart item's quantity if it is above 1
   const handleDecrease = (item) => {
     if (item.quantity > 1) {
       updateCartItem(item._id, item.quantity - 1);
     }
   };
 
-  //Deletes the selected item from the cart
   const handleDelete = (id) => {
     deleteCartItem(id);
   };
 
-  //Items
   const items = [
     {
       id: 1,
@@ -73,7 +76,12 @@ function GroceryPage() {
           <p>
             {item.name} - ${item.price}
           </p>
-          <button onClick={() => handleAdd(item)}>Add to Cart</button>
+
+          {user ? (
+            <button onClick={() => handleAdd(item)}>Add to Cart</button>
+          ) : (
+            <button onClick={handleLoginPrompt}>Login to add</button>
+          )}
         </div>
       ))}
 

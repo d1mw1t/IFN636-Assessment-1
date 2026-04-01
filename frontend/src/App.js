@@ -7,16 +7,15 @@ import GroceryPage from "./pages/GroceryPage";
 
 function App() {
   return (
-    <Router>
-      <Navbar />
-      <Routes>
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/grocery" element={<GroceryPage />} />
-        <Route path="/cart" element={<GroceryPage />} />
-      </Routes>
-    </Router>
+    <Routes>
+      <Route path="/" element={<Navigate to="/grocery" replace />} />
+
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="/profile" element={<Profile />} />
+      <Route path="/grocery" element={<GroceryPage />} />
+      <Route path="/cart" element={<GroceryPage />} />
+    </Routes>
   );
 }
 
