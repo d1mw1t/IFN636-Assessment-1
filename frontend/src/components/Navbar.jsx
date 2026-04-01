@@ -11,18 +11,15 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="bg-blue-600 text-white p-4 flex justify-between items-center">
+    <nav className="bg-green-600 text-white p-4 flex justify-between items-center">
       <Link to="/" className="text-2xl font-bold">
-        Your apps name
+        Groceries"R"Us
       </Link>
       <div>
         {user ? (
           <>
             <Link to="/grocery" className="mr-4">
               Browse
-            </Link>
-            <Link to="/cart" className="mr-4">
-              Cart
             </Link>
             <Link to="/profile" className="mr-4">
               Profile
@@ -41,7 +38,7 @@ const Navbar = () => {
             </Link>
             <Link
               to="/register"
-              className="bg-green-500 px-4 py-2 rounded hover:bg-green-700"
+              className="bg-orange-500 px-4 py-2 rounded hover:bg-green-700"
             >
               Register
             </Link>
