@@ -1,12 +1,16 @@
 import { createContext, useState, useEffect } from "react";
 import axiosInstance from "../axiosConfig";
+//Creates a global state, stores data, keeps data on reload, handles API req
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
+  //Provider of cart state to app
   const [cart, setCart] = useState([]);
+  //Store cart as an array
 
   const fetchCart = async () => {
+    //READ
     try {
       const response = await axiosInstance.get("/api/cart");
       setCart(response.data);
@@ -16,6 +20,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const addToCart = async (item) => {
+    //CREATE
     try {
       const response = await axiosInstance.post("/api/cart", item);
 
@@ -23,6 +28,7 @@ export const CartProvider = ({ children }) => {
         const existingItemIndex = prevCart.findIndex(
           (cartItem) => cartItem.name === response.data.name,
         );
+        //Avoids dupes
 
         if (existingItemIndex !== -1) {
           const updatedCart = [...prevCart];
@@ -40,6 +46,7 @@ export const CartProvider = ({ children }) => {
   useEffect(() => {
     fetchCart();
   }, []);
+  //Runs on load
 
   return (
     <CartContext.Provider value={{ cart, setCart, addToCart }}>
