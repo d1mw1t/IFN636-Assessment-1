@@ -1,7 +1,14 @@
 const mongoose = require("mongoose"); //Import mongoose library
 
-const cartItemSchema = new mongoose.Schema( //Blueprint
+const cartItemSchema = new mongoose.Schema(
   {
+    //Links cart item to a specific user
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+
     //Name req
     name: {
       type: String,

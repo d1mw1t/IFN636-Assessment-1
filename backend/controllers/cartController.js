@@ -12,8 +12,11 @@ const addToCart = async (req, res) => {
     }
     //Makes sure feilds exists and returns error if not
 
-    const existingItem = await CartItem.findOne({ name });
-    //Same thing but for name
+    //Checks if this user already has the item in their own cart
+    const existingItem = await CartItem.findOne({
+      name,
+      user: req.user._id,
+    });
 
     if (existingItem) {
       existingItem.quantity += quantity || 1;
@@ -24,6 +27,8 @@ const addToCart = async (req, res) => {
     //Saves to DB, returns an updated status
 
     const newItem = new CartItem({
+      //Creates a new cart item linked to the logged in user
+      user: req.user._id,
       name,
       category,
       price,
@@ -44,7 +49,8 @@ const addToCart = async (req, res) => {
 const getCartItems = async (req, res) => {
   //READ
   try {
-    const cartItems = await CartItem.find();
+    //Finds only the current user's cart items
+    const cartItems = await CartItem.find({ user: req.user._id });
     res.status(200).json(cartItems);
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -63,7 +69,11 @@ const updateCartItem = async (req, res) => {
     }
     //Handle and invalid input
 
-    const cartItem = await CartItem.findById(id); //find by id
+    //Finds the cart item only if it belongs to the current user
+    const cartItem = await CartItem.findOne({
+      _id: id,
+      user: req.user._id,
+    });
 
     if (!cartItem) {
       return res.status(404).json({ message: "Cart item not found" });
@@ -84,7 +94,11 @@ const deleteCartItem = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const cartItem = await CartItem.findById(id);
+    //Finds the cart item only if it belongs to the current user
+    const cartItem = await CartItem.findOne({
+      _id: id,
+      user: req.user._id,
+    });
 
     if (!cartItem) {
       return res.status(404).json({ message: "Cart item not found" });
