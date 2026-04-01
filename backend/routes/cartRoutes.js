@@ -7,10 +7,11 @@ const {
   updateCartItem,
   deleteCartItem,
 } = require("../controllers/cartController"); //Import controller functions
+const { protect } = require("../middleware/authMiddleware"); //Import route protection middleware
 
-router.post("/", addToCart); //CREATE
-router.get("/", getCartItems); //READ
-router.put("/:id", updateCartItem); //UPDATE
-router.delete("/:id", deleteCartItem); //DELETE
+router.post("/", protect, addToCart); //CREATE (protected)
+router.get("/", protect, getCartItems); //READ (protected)
+router.put("/:id", protect, updateCartItem); //UPDATE (protected)
+router.delete("/:id", protect, deleteCartItem); //DELETE (protected)
 
 module.exports = router; //Makes avalible to server
