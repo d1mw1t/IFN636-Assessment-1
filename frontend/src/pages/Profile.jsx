@@ -75,7 +75,7 @@ const Profile = () => {
         />
         <input
           type="text"
-          placeholder="ClosestStore"
+          placeholder="Closest Store"
           value={formData.closestStore}
           onChange={(e) =>
             setFormData({ ...formData, closestStore: e.target.value })
