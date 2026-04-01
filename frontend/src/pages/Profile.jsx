@@ -93,7 +93,7 @@ const Profile = () => {
         />
         <button
           type="submit"
-          className="w-full bg-blue-600 text-white p-2 rounded"
+          className="w-full bg-orange-600 text-white p-2 rounded"
         >
           {loading ? "Updating..." : "Update Profile"}
         </button>
