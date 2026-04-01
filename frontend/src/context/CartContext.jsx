@@ -17,15 +17,6 @@ export const CartProvider = ({ children }) => {
     }
   };
 
-  const fetchCart = async () => {
-    try {
-      const response = await axiosInstance.get("/api/cart");
-      setCart(response.data);
-    } catch (error) {
-      console.error("Error fetching cart:", error);
-    }
-  };
-
   const addToCart = async (item) => {
     try {
       const response = await axiosInstance.post("/api/cart", item);
