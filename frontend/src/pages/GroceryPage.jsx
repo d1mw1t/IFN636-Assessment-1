@@ -2,7 +2,9 @@ import React, { useContext } from "react"; //Import react
 import { CartContext } from "../context/CartContext";
 
 function GroceryPage() {
-  const { cart, addToCart } = useContext(CartContext);
+  //Gets cart data and cart functions from the global cart context
+  const { cart, addToCart, updateCartItem, deleteCartItem } =
+    useContext(CartContext);
 
   const handleAdd = (item) => {
     //Handle items added
@@ -15,6 +17,23 @@ function GroceryPage() {
     };
 
     addToCart(cartItem);
+  };
+
+  //Increases the selected cart item's quantity by 1
+  const handleIncrease = (item) => {
+    updateCartItem(item._id, item.quantity + 1);
+  };
+
+  //Decreases the selected cart item's quantity if it is above 1
+  const handleDecrease = (item) => {
+    if (item.quantity > 1) {
+      updateCartItem(item._id, item.quantity - 1);
+    }
+  };
+
+  //Deletes the selected item from the cart
+  const handleDelete = (id) => {
+    deleteCartItem(id);
   };
 
   //Items
@@ -59,11 +78,15 @@ function GroceryPage() {
       ))}
 
       <h2>Cart</h2>
-      {cart.map((item, index) => (
-        <div key={index}>
+      {cart.map((item) => (
+        <div key={item._id}>
           <p>
             {item.name} - ${item.price} x {item.quantity}
           </p>
+
+          <button onClick={() => handleDecrease(item)}>-</button>
+          <button onClick={() => handleIncrease(item)}>+</button>
+          <button onClick={() => handleDelete(item._id)}>Remove</button>
         </div>
       ))}
     </div>
