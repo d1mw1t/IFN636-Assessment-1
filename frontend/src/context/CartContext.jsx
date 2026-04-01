@@ -1,17 +1,14 @@
 import { createContext, useState, useEffect } from "react";
 import axiosInstance from "../axiosConfig";
-// global cart state + api calls
+import { useAuth } from "./AuthContext";
 
 export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
-  // wraps app
-
   const [cart, setCart] = useState([]);
-  // cart array
+  const { user } = useAuth();
 
   const fetchCart = async () => {
-    // READ
     try {
       const response = await axiosInstance.get("/api/cart");
       setCart(response.data);
@@ -21,7 +18,6 @@ export const CartProvider = ({ children }) => {
   };
 
   const addToCart = async (item) => {
-    // CREATE
     try {
       const response = await axiosInstance.post("/api/cart", item);
 
@@ -29,7 +25,6 @@ export const CartProvider = ({ children }) => {
         const existingItemIndex = prevCart.findIndex(
           (cartItem) => cartItem.name === response.data.name,
         );
-        // check if already in cart
 
         if (existingItemIndex !== -1) {
           const updatedCart = [...prevCart];
@@ -44,48 +39,45 @@ export const CartProvider = ({ children }) => {
     }
   };
 
+  // Updates the quantity of an existing cart item in the database and local state
   const updateCartItem = async (id, quantity) => {
-    // UPDATE
     try {
-      const response = await axiosInstance.put(`/api/cart/${id}`, {
-        quantity,
-      });
+      // Sends the new quantity to the backend for the selected item
+      const response = await axiosInstance.put(`/api/cart/${id}`, { quantity });
 
+      // Replaces the old item in state with the updated item from the backend
       setCart((prevCart) =>
         prevCart.map((item) => (item._id === id ? response.data : item)),
       );
-      // replace updated item
     } catch (error) {
       console.error("Error updating cart item:", error);
     }
   };
 
+  // Deletes the selected cart item from the database and removes it from local state
   const deleteCartItem = async (id) => {
-    // DELETE
     try {
+      // Sends delete request to backend using the item's id
       await axiosInstance.delete(`/api/cart/${id}`);
 
+      // Removes the deleted item from the current cart state
       setCart((prevCart) => prevCart.filter((item) => item._id !== id));
-      // remove from state
     } catch (error) {
       console.error("Error deleting cart item:", error);
     }
   };
 
   useEffect(() => {
-    fetchCart();
-  }, []);
-  // run once on load
+    if (user) {
+      fetchCart();
+    } else {
+      setCart([]);
+    }
+  }, [user]);
 
   return (
     <CartContext.Provider
-      value={{
-        cart,
-        setCart,
-        addToCart,
-        updateCartItem,
-        deleteCartItem,
-      }}
+      value={{ cart, setCart, addToCart, updateCartItem, deleteCartItem }}
     >
       {children}
     </CartContext.Provider>
