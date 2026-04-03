@@ -2,8 +2,8 @@ import axios from "axios";
 
 //Create axios instance (base setup)
 const axiosInstance = axios.create({
-  baseURL: "http://localhost:5001", //Local backend
-  //baseURL: 'http://3.26.96.188:5001', //Live backend
+  // baseURL: "http://localhost:5001", //Local backend
+  baseURL: "http://13.239.227.78:5001", //Live backend
   headers: { "Content-Type": "application/json" },
 });
 
