@@ -1,6 +1,6 @@
-# 🛒 Grocerie R Us
+# 🛒 Groceries"R"Us
 
-Welcome to **Grocerie R Us** — a full-stack grocery app built from the original task manager base and reworked into a cart system with full CRUD functionality and CI/CD setup.
+Welcome to **Groceries"R"Us** — a full-stack grocery app built from the original task manager base and reworked into a cart system with full CRUD functionality and CI/CD setup.
 
 At a high level, the app lets users browse items, add them to a cart, update quantities, and remove them. Everything is tied to user accounts, so each person has their own cart rather than a shared one.
 
