@@ -15,6 +15,7 @@ At a high level, the app lets users browse items, add them to a cart, update qua
 - Running Locally
 - CI/CD & Deployment
 - Access Details
+- Branch Purpose Guide
 - Notes
 
 ==================================================================
@@ -213,6 +214,52 @@ Users:
 - Then log in
 
 Each account gets its own cart.
+
+==================================================================
+
+## 🌿 Branch Purpose Guide
+
+This project used multiple branches during development so features could be built, tested, refined, and cleaned up before being merged into the final version.
+
+### Branch summary
+
+- `main`  
+  Final submission branch containing the current working version of the project.
+
+- `backend`  
+  Used for initial backend-side CRUD work and route/controller changes.
+
+- `frontend`  
+  Used for initial frontend-side development and interface integration.
+
+- `test`  
+  Used as a safe working branch for trialling changes before deciding whether to merge or move them elsewhere.
+
+- `features`  
+  Used as the main combined development branch once major backend and frontend features were brought together.
+
+- `frontend-styling`  
+  Used for styling and visual improvements to the frontend UI.
+
+- `ui-branding`  
+  Used for smaller branding-related updates such as presentation and interface polish.
+
+- `frontend-update-delete`  
+  Used for implementing and testing frontend cart update/delete behaviour.
+
+- `backend-auth-cart-refine`  
+  Used for refining cart logic alongside authentication so cart data stayed user-specific.
+
+- `cleanup-remove-tasks`  
+  Used to remove leftover starter-project task manager files and references that were no longer relevant after conversion to the grocery/cart system.
+
+- `final-repo-cleanup`  
+  Used for final repository cleanup, file organisation, and preparation before submission/deployment.
+
+### Why so many branches were used
+
+The original starter project was progressively transformed into a grocery cart system with authentication, CRUD functionality, testing, and CI/CD.  
+Using separate branches helped isolate changes, reduce risk when experimenting, and keep a clearer development trail throughout the project.
 
 ==================================================================
 
